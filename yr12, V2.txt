@@ -1,0 +1,65 @@
+def command_operator(order):
+    if order == options_list[0] or order == options_list[3]:
+        task = input("what task would you like to add to your list?: ")
+        if task == "exit_task_list":
+            return "exit_the_task_list"
+        task_list.append(task)
+        if task != "exit_task_list":
+            return "running"
+    elif order == options_list[1] or order == options_list[4]:
+        print("your tasks:")
+        tasks_in_list = len(task_list)
+        x = range(0, tasks_in_list, 1)
+        b = 0
+        for n in x:
+            b += 1
+            print("{}.".format(b), task_list[n])
+        return "halt"
+        
+        
+    
+
+
+user_name = input("greetings user, what is your name?: ")
+print("hello user {}. It's nice to meet you.".format(user_name))
+
+global task_list
+global options_list
+options_list = ["addtask", "viewtasks", "exitprogram","1","2","3"]
+task_list = []
+
+print("what would you like to do out of the following options {}?".format(user_name))
+print("1. add a task to your to do list \n2. view current tasks in list \n3. exit the program")
+order = input("to select one of the following, please enter the number of your objective or the following comands: ['add task', 'view tasks', 'exit program']: ")
+loop = 0
+order = str(order).strip().lower().replace(" ","")
+while order not in options_list[2] or order not in options_list[5]:
+    if order in options_list[2] or order in options_list[5]:
+        break
+    if loop > 0:
+        order = input("please enter the number of your objective or the following comands: ['add task', 'view tasks', 'exit program']: ")
+        order = str(order).strip().lower().replace(" ","")
+    loop += 1
+    while order not in options_list:
+        print("command {} unrecognised".format(order))
+        order = input("to select one of the following, please enter the number of your objective or the following comands: ['add task', 'view tasks', 'exit program']: ")
+        order = str(order).strip().lower().replace(" ","")
+    if order in options_list[2] or order in options_list[5]:
+        break
+    if order in options_list[0] or order in options_list[3]:
+        print("type command ['exit_task_list'] if you want to stop adding tasks.")
+    if order in options_list[1] or order in options_list[4]:
+        program_status = command_operator(order)
+    else:
+        command_operator(order)
+        program_status = "running"
+    while program_status != "exit_the_task_list" and program_status == "running":
+        program_status = command_operator(order)
+
+    
+
+
+
+
+
+print("bye bye.")
